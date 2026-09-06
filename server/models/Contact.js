@@ -1,0 +1,37 @@
+const mongoose = require('mongoose')
+
+const contactSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 120,
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true,
+      maxlength: 254,
+    },
+    message: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 2000,
+    },
+    // For basic spam analysis
+    ipAddress: {
+      type: String,
+      default: null,
+    },
+    read: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  { timestamps: true }
+)
+
+module.exports = mongoose.model('Contact', contactSchema)

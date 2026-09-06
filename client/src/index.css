@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-gold:  201 162 74;
+    --color-amber: 232 200 116;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: #0a0e17;
+    color: #e8e8e8;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Lenis smooth-scroll drives scrolling now, so native smooth-scroll is
+     intentionally left off — the two fight each other and cause jank. */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0e17;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c9a24a;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #e8c874;
+  }
+
+  ::selection {
+    background: rgba(201, 162, 74, 0.3);
+    color: #e8c874;
+  }
+}
+
+/* Custom cursor: hide the native cursor everywhere once CustomCursor.jsx
+   mounts (fine-pointer devices only — it removes this class itself
+   on touch devices so mobile keeps the native cursor/tap behavior). */
+@media (pointer: fine) {
+  body.cursor-none-desktop,
+  body.cursor-none-desktop * {
+    cursor: none !important;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-label {
+    @apply font-mono text-gold text-xs tracking-widest uppercase;
+  }
+
+  .section-heading {
+    @apply text-4xl sm:text-5xl font-black tracking-tight text-body leading-none;
+  }
+
+  .gold-text {
+    @apply bg-gold-gradient bg-clip-text text-transparent;
+  }
+
+  .card-dark {
+    @apply bg-bg-card border border-gold/20 rounded-xl;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm
+           bg-gold-gradient text-bg-primary transition-all duration-300
+           hover:shadow-gold-glow hover:scale-105 active:scale-95;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm
+           border border-gold/50 text-gold transition-all duration-300
+           hover:border-gold hover:bg-gold/10 hover:shadow-gold-sm active:scale-95;
+  }
+
+  .tech-pill {
+    @apply inline-block px-2.5 py-0.5 rounded-full text-xs font-mono
+           bg-gold/10 text-amber border border-gold/20;
+  }
+}
+
+/* Noise texture overlay for cinematic depth */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
