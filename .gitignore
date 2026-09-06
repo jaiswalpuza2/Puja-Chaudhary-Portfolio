@@ -15,6 +15,11 @@ build/
 client/dist/
 server/dist/
 
+# ── Lock files (let each environment generate its own) ────────────────────────
+package-lock.json
+client/package-lock.json
+server/package-lock.json
+
 # ── OS / editor noise ─────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
